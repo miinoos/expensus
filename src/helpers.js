@@ -1,3 +1,6 @@
+export const waait = () =>
+  new Promise((res) => setTimeout(res, Math.random() * 2000));
+
 //Local storage functions
 export const fetchData = (key) => {
   // localStorage.setItem("userName", JSON.stringify("Yudhajit"));
@@ -21,6 +24,21 @@ export const createBudget = ({ name, amount }) => {
   return localStorage.setItem(
     "budgets",
     JSON.stringify([...existingBudgets, newItem])
+  );
+};
+
+export const createExpense = ({ name, amount, budgetId }) => {
+  const newItem = {
+    id: crypto.randomUUID(),
+    name: name,
+    createdAt: Date.now(),
+    amount: +amount,
+    budgetId: budgetId,
+  };
+  const existingExpense = fetchData("Expense") ?? [];
+  return localStorage.setItem(
+    "Expense",
+    JSON.stringify([...existingExpense, newItem])
   );
 };
 
